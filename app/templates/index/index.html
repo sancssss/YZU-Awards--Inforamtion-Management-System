@@ -2,7 +2,11 @@
  {% block content %}
         <div class="jumbotron">
         <div class="container"> 
-            <h3 class="display-3">请登录</h3>
+        {% if current_user.is_authenticated %}
+            <h3 class="display-3">Hello!</h3><h2 class="display-5">老师 {{ current_user.name }}</h2>
+        {% else %}
+        	<h3 class="display-3">请登录</h3>
+        {% endif %}
             <p>教师登陆后可以进行学生学科竞赛获奖情况上传/管理员登录进行后台审核</p>
             <p><a class="btn btn-primary btn-lg" href="/userLogin" role="button">教师登陆 »</a>
             <a class="btn btn-primary btn-lg" href="/adminLogin" role="button">管理登陆 »</a>

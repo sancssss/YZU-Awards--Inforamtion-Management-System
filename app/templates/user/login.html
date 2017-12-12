@@ -6,12 +6,13 @@
 <form action="" method="post" name="userLogin">
         {{form.hidden_tag()}}
         <p>
-            用户名:<br>
-            {{form.username}}<br>
+            用户ID: {{form.userid}}<br>
         </p>
         <p>
-            密码:<br>
-            {{ form.password }}
+            密码: {{form.password}}
+        </p>
+        <p>
+            记住登录: {{form.remember}}
         </p>
         <p><input type="submit" value="登录"></p>
 </form>
