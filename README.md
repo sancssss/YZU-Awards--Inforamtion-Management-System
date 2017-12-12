@@ -1,2 +1,2 @@
-# YZU-awards-management-System
+# YZU-Awards-Management-System
 for Yangzhou University
