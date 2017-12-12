@@ -1,0 +1,20 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container"> 
+	<div class="jumbotron">
+<form action="" method="post" name="userLogin">
+        {{form.hidden_tag()}}
+        <p>
+            用户名:<br>
+            {{form.username}}<br>
+        </p>
+        <p>
+            密码:<br>
+            {{ form.password }}
+        </p>
+        <p><input type="submit" value="登录"></p>
+</form>
+	</div>
+</div>
+ {% endblock %}
