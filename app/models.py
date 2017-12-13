@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*- 
 from app import db
 
 ROLE_USER = 1
@@ -9,7 +10,7 @@ class User(db.Model):
 	name = db.Column(db.String(32), nullable=False)
 	password = db.Column(db.String(32), nullable=False)
 	role = db.Column(db.SmallInteger, default = ROLE_USER)
-	award_records = db.relationship('AwardRecord', backref = 'award_record', lazy = 'dynamic')
+	award_records = db.relationship('AwardRecord', backref=db.backref('users'))
 
 	def __init__(self, id, name, password):
 		self.id  = id
@@ -17,7 +18,7 @@ class User(db.Model):
 		self.password = self.set_password(password)
 
 	def __repr__(self):
-		return '<User %r>' % (self.name)
+		return unicode(self.name).encode('utf-8')
 
 	def md5(self, str):
 		import hashlib
@@ -49,28 +50,28 @@ class Award(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.String(255), nullable=False)
 	institution = db.Column(db.String(255), nullable=False)
-	award_records = db.relationship('AwardRecord', lazy = 'dynamic')
+	award_records = db.relationship('AwardRecord', backref=db.backref('awards'))
 
 	def __repr__(self):
-		return '<Award %r>' % (self.name)
+		return unicode(self.name).encode('utf-8')
 
 class AwardGrade(db.Model):
 	__tablename__ = 'award_grade'
 	id = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.String(255), nullable=False)
-	award_records = db.relationship('AwardRecord', lazy = 'dynamic')
+	award_records = db.relationship('AwardRecord', backref=db.backref('awardgrades'))
 
 	def __repr__(self):
-		return '<Award_grade %r>' % (self.name)
+		return unicode(self.name).encode('utf-8')
 
 class AwardLevel(db.Model):
 	__tablename__ = 'award_level'
 	id = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.String(255), nullable=False)
-	award_records = db.relationship('AwardRecord', lazy = 'dynamic')
+	award_records = db.relationship('AwardRecord', backref=db.backref('awardlevels'))
 	
 	def __repr__(self):
-		return '<Award_level %r>' % (self.name)
+		return unicode(self.name).encode('utf-8')
 
 class AwardRecord(db.Model):
 	__tablename__ = 'award_record'
@@ -87,4 +88,4 @@ class AwardRecord(db.Model):
 	submit_userid = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 	
 	def __repr__(self):
-		return '<Award %r>' % (self.name)
+		return unicode(self.name).encode('utf-8')

@@ -1,0 +1,11 @@
+ {% extends "base.html" %}
+ {% block content %}
+        <div class="jumbotron">
+        <div class="container"> 
+        	 <h3 class="display-3"></h3><h2 class="display-5">老师 {{ current_user.name }} </h2>
+            <p><a class="btn btn-primary btn-lg" href="/userAwardsHistory" role="button">查看我上传的奖项</a>
+            <a class="btn btn-primary btn-lg" href="/userUploadNewAward" role="button">上传一个新奖项</a>
+            </p>
+        </div>
+        </div>
+{% endblock %}

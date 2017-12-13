@@ -3,13 +3,16 @@ from app import app
 from flask import render_template, flash, redirect, url_for
 from forms import UserLoginForm
 from models import User
-from flask_login import login_required, current_user, login_user
+from models import ROLE_ADMIN, ROLE_USER
+from flask_login import login_required, current_user, login_user, logout_user
 
 @app.route("/")
 def main():
 	"""login entrance for teachers to submit data"""
 	return render_template('/index/index.html',
-		title = '首页'
+		title = '首页',
+		ROLE_ADMIN = ROLE_ADMIN,
+		ROLE_USER = ROLE_USER
 		)
 
 @app.route("/userLogin", methods= ['GET', 'POST'])
@@ -23,8 +26,8 @@ def user_login():
 		login_user(user, remember=form.remember.data)
 		return redirect(url_for('main'))
 
-	return render_template('/user/login.html',
-		title = '用户登录',
+	return render_template('/index/login.html',
+		title = '登录系统',
 		form = form
 		)
 
@@ -41,10 +44,18 @@ def logout():
     return redirect(url_for('main'))
 
 @app.route('/userCentre')
+@login_required
 def user_centre():
+	return render_template('/user/user_centre.html',
+		title = '用户中心',
+		)
 
-		return render_template('/user/login.html',
-		title = '用户登录',
-		form = form
+@app.route('/adminCentre')
+@login_required
+def admin_centre():
+	if not current_user.role == ROLE_ADMIN:
+		return redirect(url_for('main'))
+	return render_template('admin/admin_centre.html',
+		title = '管理后台'
 		)
 
