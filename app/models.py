@@ -34,7 +34,7 @@ class User(db.Model):
 		return (self.md5(password) == self.password)
 
 	def is_authenticated(self):
-		return True
+		return False 
 
 	def is_active(self):
 		return True

@@ -8,13 +8,14 @@ from flask import render_template, flash, redirect, url_for
 from flask_login import login_required, current_user, login_user, logout_user
 from wtforms.validators import Required
 
+
 class AdminModelView(ModelView):
 
-	def is_acessible(self):
+	def is_accessible(self):
 	 	return current_user.is_authenticated and current_user.role == ROLE_ADMIN
 
 	def inaccessible_callback(self, name, **kwargs):
-		return redirect(url_for('login', next=request.url))
+		return redirect(url_for('user_login'))
 
 class AwardRecordModelView(AdminModelView):
 	page_size = 50
@@ -24,7 +25,6 @@ class AwardRecordModelView(AdminModelView):
         'validators': [Required()]
     	}
 	}
-
 
 adm.add_view(AwardRecordModelView(AwardRecord, db.session()))
 
